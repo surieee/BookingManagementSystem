@@ -49,46 +49,8 @@ public class TicketController {
     public TicketController() throws SQLException {
     	this.ticketService=new TicketService();
     }
-    // Method to view tickets of the logged-in user
-//    public void viewMyTickets() throws ClassNotFoundException {
-//        // Fetch tickets for the logged-in user
-//        List<TicketModel> tickets = ticketService.getTicketsByUsername(AccountController.loggedInUsername);
-//
-//        if (tickets.isEmpty()) {
-//            System.out.println("No tickets found for your account.");
-//        } else {
-//            // Print tickets using TicketPrinter
-//            TicketPrinter.printTickets(tickets);
-//        }
-//    }
-//
-//    public  viewMyTickets() throws ClassNotFoundException {
-//        // Fetch tickets for the logged-in user
-//        List<TicketModel> tickets = ticketService.getTicketsByUsername(AccountController.loggedInUsername);
-//
-//        if (tickets == null || tickets.isEmpty()) {
-//            System.out.println("No tickets found for your account.");
-//        } else {
-//            // Print tickets using TicketPrinter
-//            TicketPrinter.printTickets(tickets);
-//        }
-//    }
-
-//    public List<TicketModel> viewMyTickets() throws ClassNotFoundException {
-//        // Fetch tickets for the logged-in user
-//        List<TicketModel> tickets = ticketService.getTicketsByUsername(AccountController.loggedInUsername);
-//
-//        if (tickets == null || tickets.isEmpty()) {
-//            // Print a message if no tickets are found
-//            System.out.println("No tickets found for your account.");
-//            return tickets;  // Return an empty list
-//        } else {
-//            // Print tickets using TicketPrinter
-//            TicketPrinter.printTickets(tickets);
-//            return tickets; // Return the list of tickets
-//        }
-//    }
-    public List<TicketModel> viewMyTickets() throws ClassNotFoundException {
+    
+    public List<TicketModel> viewMyTicketsToCancel() throws ClassNotFoundException {
         // Fetch tickets for the logged-in user
         List<TicketModel> tickets = ticketService.getTicketsByUsername(AccountController.loggedInUsername);
         Scanner scanner = new Scanner(System.in);
@@ -108,13 +70,17 @@ public class TicketController {
                 try {
                     selectedIndex = Integer.parseInt(scanner.nextLine().trim());
                     if (selectedIndex == 0) {
-                        System.out.println("Selection canceled.");
+                        System.out.println("Selection cancelled.");
                         return tickets; // Return the list of tickets
                     } else if (selectedIndex > 0 && selectedIndex <= tickets.size()) {
                         // Valid index
                         TicketModel selectedTicket = tickets.get(selectedIndex - 1); // Adjust index for 0-based list
                         System.out.println("You selected ticket ID: " + selectedTicket.getTicketId());
-                        // Additional processing for the selected ticket can be done here
+                        if ("cancelled".equalsIgnoreCase(selectedTicket.getTicketStatus())) {
+                            System.out.println("Ticket is already cancelled.");
+                            return null;
+                        }
+                        ticketService.cancelTicket(selectedTicket.getTicketId());
                         return tickets; // Return the list of tickets
                     } else {
                         System.out.println("Invalid index. Please try again.");
@@ -124,6 +90,18 @@ public class TicketController {
                 }
             }}
         }
+    
+    public List<TicketModel> viewMyTickets() throws ClassNotFoundException {
+    List<TicketModel> tickets = ticketService.getTicketsByUsername(AccountController.loggedInUsername);
+    if (tickets == null || tickets.isEmpty()) {
+        // Print a message if no tickets are found
+        System.out.println("No tickets found for your account.");
+        return tickets;  // Return an empty list
+    } else {
+        // Print tickets using TicketPrinter
+        TicketPrinter.printTickets(tickets);
+    }
+	return tickets;}
     // Method to generate a new ticket
     public String createTickets( String userId,String eventId, int noOfTickets) {
         try {
@@ -137,43 +115,8 @@ public class TicketController {
             return null;
         }
     }
-    public void cancelTicket() {
-        try {
-            // Fetch the list of tickets for the logged-in user
-            List<TicketModel> tickets = ticketService.getTicketsByUsername(AccountController.loggedInUsername);
-            
-            // Check if there are any tickets to cancel
-            if (tickets == null || tickets.isEmpty()) {
-                System.out.println("No tickets found for your account.");
-                return;
-            }
-
-            // Print the list of tickets with indexes
-            TicketPrinter.printTickets(tickets);
-
-            // Prompt the user to select a ticket by index
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Enter the index of the ticket you want to cancel: ");
-            int index = scanner.nextInt();
-
-            // Validate the input
-            if (index < 1 || index > tickets.size()) {
-                System.out.println("Invalid index. Please try again.");
-                return;
-            }
-
-            // Retrieve the ticket ID based on the selected index
-            TicketModel selectedTicket = tickets.get(index - 1); // Adjusting index as list is zero-based
-            String ticketId = selectedTicket.getTicketId();
-
-            // Cancel the ticket using the retrieved ticket ID
-            ticketService.cancelTicket(ticketId);
-            //System.out.println("Ticket has been canceled successfully.");
-        } catch (Exception e) {
-            System.out.println("An error occurred while canceling the ticket: " + e.getMessage());
-            e.printStackTrace();
-        }}
 }
+
 
 
 

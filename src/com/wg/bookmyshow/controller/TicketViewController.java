@@ -28,22 +28,5 @@ public class TicketViewController {
     }
     
 
-//    public void cancelTicket() throws ClassNotFoundException {
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.print("Enter Ticket ID to cancel: ");
-//        String ticketId = scanner.nextLine();
-//        
-//        TicketViewModel ticket = ticketViewService.getTicketById(ticketId);
-//        if (ticket == null) {
-//            System.out.println("Ticket not found!");
-//            return;
-//        }
-//
-//        boolean success = ticketViewService.cancelTicket(ticketId);
-//        if (success) {
-//            System.out.println("Ticket canceled and payment refunded successfully.");
-//        } else {
-//            System.out.println("Failed to cancel the ticket.");
-//        }
-//    }
+
 }

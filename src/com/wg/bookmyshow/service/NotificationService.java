@@ -7,7 +7,9 @@ import com.wg.bookmyshow.model.EventModel;
 import com.wg.bookmyshow.model.NotificationModel;
 
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class NotificationService {
@@ -32,20 +34,31 @@ public class NotificationService {
         // Get user IDs and booking IDs by event ID
         List<String[]> userBookings = notificationDao.getUserIdsAndBookingIdsByEventId(event.getEventId());
 
+        // Use a Set to track unique users for sending notifications
+        Set<String> notifiedUsers = new HashSet<>();
+
         // Send notifications to each user
         for (String[] userBooking : userBookings) {
             String userId = userBooking[0];
-            String bookingId = userBooking[1];
 
+            if (notifiedUsers.contains(userId)) {
+                continue; // Skip if the user has already been notified
+            }
+
+            // Create and send notification
             NotificationModel notification = new NotificationModel();
             notification.setNotificationId("N" + System.currentTimeMillis());
             notification.setMessage(message);
             notification.setPriority(priority);
             notification.setUserId(userId);
-            notification.setBookingId(bookingId);
+            // notification.setBookingId(userBooking[1]); // Optional
 
             notificationDao.addNotification(notification);
+
+            // Mark user as notified
+            notifiedUsers.add(userId);
         }
+
         System.out.println("Notifications sent successfully for event: " + eventName);
     }
 
@@ -70,7 +83,7 @@ public class NotificationService {
         notification.setMessage(message);
         notification.setPriority(priority);
         notification.setUserId(userId);
-        notification.setBookingId(bookingId);
+       // notification.setBookingId(bookingId);
 
         return notificationDao.addNotification(notification);
     }
@@ -83,7 +96,7 @@ public class NotificationService {
         notification.setMessage(message);
         notification.setPriority("HIGH");
         notification.setUserId(userId);
-        notification.setBookingId(null);
+       // notification.setBookingId(null);
 
         return notificationDao.addNotification(notification);
     }

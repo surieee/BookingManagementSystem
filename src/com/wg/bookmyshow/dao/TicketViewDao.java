@@ -51,32 +51,4 @@ public class TicketViewDao {
 
     
 
-//    public boolean cancelTicket(String ticketId) throws ClassNotFoundException {
-//        String sqlUpdateTicket = "UPDATE tickets SET ticket_status = 'canceled' WHERE ticket_id = ?";
-//        String sqlUpdatePayment = "UPDATE payment SET payment_status = 'refunded' WHERE payment_id = (SELECT payment_id FROM booking WHERE booking_id = (SELECT booking_id FROM tickets WHERE ticket_id = ?))";
-//
-//        try (Connection conn = DBConnection.getConnection();
-//             PreparedStatement stmtTicket = conn.prepareStatement(sqlUpdateTicket);
-//             PreparedStatement stmtPayment = conn.prepareStatement(sqlUpdatePayment)) {
-//
-//            conn.setAutoCommit(false);
-//
-//            stmtTicket.setString(1, ticketId);
-//            int ticketUpdated = stmtTicket.executeUpdate();
-//
-//            stmtPayment.setString(1, ticketId);
-//            int paymentUpdated = stmtPayment.executeUpdate();
-//
-//            if (ticketUpdated > 0 && paymentUpdated > 0) {
-//                conn.commit();
-//                return true;
-//            } else {
-//                conn.rollback();
-//                return false;
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
 

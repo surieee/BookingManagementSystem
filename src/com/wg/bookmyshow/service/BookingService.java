@@ -48,27 +48,6 @@ private  TicketModel ticket;
         return bookings;
     }
 
-    // Book tickets
-//    public boolean bookTickets() throws ClassNotFoundException {
-//        System.out.println("Booking tickets...");
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.print("Enter Event ID to book: ");
-//        String eventId = scanner.nextLine().trim();
-//        System.out.print("Enter number of tickets: ");
-//        int numberOfTickets = scanner.nextInt();
-//        scanner.nextLine(); // Consume newline
-//
-//        // Fetch the event to verify
-//        EventModel event = eventDao.getEventById(eventId);
-//        if (event == null) {
-//            System.out.println("Event not found.");
-//            return false;
-//        }
-//
-//        // Call createBooking with the event and number of tickets
-//       // return createBooking(event, numberOfTickets,);
-//    }
-
     // Create booking
     public boolean createBooking(EventModel event, int numberOfTickets,double totalAmount,String paymentId,String ticketId) throws SQLException {
         if (numberOfTickets <= 0) {

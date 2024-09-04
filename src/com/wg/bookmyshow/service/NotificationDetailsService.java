@@ -14,7 +14,8 @@ public class NotificationDetailsService {
         this.notificationDetailsDao = new NotificationDetailsDao();
     }
 
-    public List<NotificationDetails> getNotificationDetails() throws ClassNotFoundException, SQLException {
-        return notificationDetailsDao.getAllNotificationDetails();
+    public List<NotificationDetails> getNotificationDetails(String userId) throws ClassNotFoundException, SQLException {
+        
+    	return notificationDetailsDao.getAllNotificationDetails(userId);
     }
 }

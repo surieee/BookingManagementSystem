@@ -174,35 +174,7 @@ public class EventDao extends GenericDao<EventModel> {
         }
     }
 
-//    public List<EventModel> searchEvents(Map<String, Object> filters) throws ClassNotFoundException {
-//        StringBuilder query = new StringBuilder("SELECT * FROM Event WHERE 1=1");
-//System.out.println("innnnnn");
-//        // Add filters to the query
-//        for (String key : filters.keySet()) {
-//            query.append(" AND ").append(key).append(" = ?");
-//        }
-//
-//        try (Connection connection = DBConnection.getConnection();
-//             PreparedStatement stmt = connection.prepareStatement(query.toString())) {
-//
-//            int index = 1;
-//            for (Object value : filters.values()) {
-//                stmt.setObject(index++, value);
-//            }
-//
-//            ResultSet rs = stmt.executeQuery();
-//            List<EventModel> events = new ArrayList<>();
-//
-//            while (rs.next()) {
-//                events.add(mapResultSetToEntity(rs));
-//            }
-//
-//            return events;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return new ArrayList<>();
-//        }
-//    }
+
     public List<EventModel> searchEvents(Map<String, Object> filters) throws ClassNotFoundException {
         StringBuilder query = new StringBuilder("SELECT * FROM Event WHERE 1=1");
         

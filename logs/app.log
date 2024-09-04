@@ -1,2 +1,28 @@
 Sep 03, 2024 3:14:51 PM com.wg.bookmyshow.controller.AccountController login
 INFO: User Authenticated Successfully! Username: user7
+Sep 03, 2024 5:58:03 PM com.wg.bookmyshow.controller.AccountController login
+INFO: User Authenticated Successfully! Username: admin7
+Sep 03, 2024 6:00:17 PM com.wg.bookmyshow.controller.AccountController login
+INFO: User Authenticated Successfully! Username: suri3
+Sep 03, 2024 6:02:48 PM com.wg.bookmyshow.controller.AccountController login
+INFO: User Authenticated Successfully! Username: admin7
+Sep 03, 2024 6:03:41 PM com.wg.bookmyshow.controller.AccountController login
+WARNING: Login failed - Account is blocked: Account is blocked. Please contact support.
+Sep 03, 2024 6:05:39 PM com.wg.bookmyshow.controller.AccountController login
+INFO: User Authenticated Successfully! Username: admin7
+Sep 03, 2024 6:08:46 PM com.wg.bookmyshow.controller.AccountController login
+WARNING: User Authentication Failed! Username: suri3 Error: Invalid username or password.
+Sep 03, 2024 6:09:05 PM com.wg.bookmyshow.controller.AccountController login
+INFO: User Authenticated Successfully! Username: user7
+Sep 04, 2024 5:28:46 AM com.wg.bookmyshow.controller.AccountController login
+INFO: User Authenticated Successfully! Username: user7
+Sep 04, 2024 5:29:36 AM com.wg.bookmyshow.controller.BookingController processTickets
+INFO: Tickets created successfully. User ID: 1d394172-fcd8-433d-8e92-839670f18b83, Event ID: 3973cea6-7318-4702-9daf-a91c076d57e5, Ticket ID: 8ae38fb4-c7f7-4a50-8b7d-018658591757, Number of Tickets: 4
+Sep 04, 2024 5:29:36 AM com.wg.bookmyshow.controller.BookingController bookTickets
+INFO: Tickets booked successfully. Ticket ID: 8ae38fb4-c7f7-4a50-8b7d-018658591757, Number of Tickets: 4
+Sep 04, 2024 5:35:13 AM com.wg.bookmyshow.controller.AccountController login
+INFO: User Authenticated Successfully! Username: user7
+Sep 04, 2024 5:35:44 AM com.wg.bookmyshow.controller.BookingController processTickets
+INFO: Tickets created successfully. User ID: 1d394172-fcd8-433d-8e92-839670f18b83, Event ID: 3973cea6-7318-4702-9daf-a91c076d57e5, Ticket ID: 84a7a015-32c3-41df-aacd-95f56697794c, Number of Tickets: 1
+Sep 04, 2024 5:35:44 AM com.wg.bookmyshow.controller.BookingController bookTickets
+INFO: Tickets booked successfully. Ticket ID: 84a7a015-32c3-41df-aacd-95f56697794c, Number of Tickets: 1

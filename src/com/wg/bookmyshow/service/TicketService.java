@@ -59,22 +59,7 @@ public class TicketService {
         return ticketDao.getTicketsByUsername(username);
     }
 
-//    public void generateTicket(String seatNumber, String ticketStatus, String eventId) throws ClassNotFoundException {
-//        // Generate a unique ticket ID using UUID
-//        String ticketId = UUID.randomUUID().toString();
-//
-//        // Create a TicketModel instance
-//        TicketModel ticket = new TicketModel();
-//        ticket.setTicketId(ticketId);
-//        ticket.setSeatNumber(seatNumber);
-//        ticket.setTicketStatus(ticketStatus);
-//        ticket.setEventId(eventId);
-//
-//        // Save the ticket using TicketDao
-//        if (ticketDao.createTicket(ticket)!=null) {
-//            System.out.println("Failed to create ticket with ID: " + ticketId);
-//        }
-//    }
+
 
     public String generateTickets(String eventId, int numberOfTickets) throws ClassNotFoundException {
     	TicketModel ticket = new TicketModel();

@@ -14,6 +14,7 @@ import com.wg.bookmyshow.service.BookingService;
 import com.wg.bookmyshow.service.EventService;
 import com.wg.bookmyshow.util.BookingPrinter;
 import com.wg.bookmyshow.util.EventPrinter;
+import com.wg.bookmyshow.util.FileLogging;
 import com.wg.bookmyshow.util.LoggingHelper;
 
 // Initialize TicketController
@@ -30,7 +31,7 @@ public class BookingController {
     }
     Scanner scanner = new Scanner(System.in);
 
-    private static Logger logger = LoggingHelper.getLogger(BookingController.class);
+    private static Logger logger = FileLogging.getLogger(BookingController.class);
     public static String processPayment(String userId, double amount, String eventId) throws ClassNotFoundException {
         // Step 1: Make Payment
         String paymentId = paymentController.makePayment(userId, amount);
@@ -56,11 +57,11 @@ public class BookingController {
         System.out.println("Booking processed successfully. Tickets created.");
         logger.log(Level.INFO, "Tickets created successfully. User ID: " + userId + ", Event ID: " + eventId + ", Ticket ID: " + ticketId + ", Number of Tickets: " + numberOfTickets);
         
-        //auto genrated notification
-        NotificationController notificationController = new NotificationController();
-        String message = "Your booking was successful for event: " + eventId;
-        String priority = "HIGH"; // You can adjust priority based on logic
-        notificationController.createNotification(message, priority, userId);
+//        //auto genrated notification
+//        NotificationController notificationController = new NotificationController();
+//        String message = "Your booking was successful for event: " + eventId;
+//        String priority = "HIGH"; // You can adjust priority based on logic
+//      //  notificationController.createNotification(message, priority, userId);
 
         return ticketId;
     }
@@ -88,33 +89,6 @@ public class BookingController {
             String eventStatus = event.getEventStatus();
             boolean isBlocked = event.isBlocked(); // Assumes getBlocked() is a method in EventModel
 
-            if (isBlocked) {
-                System.out.println("Event is blocked and cannot be booked.");
-                return false;
-            }
-
-            if ("cancelled".equalsIgnoreCase(eventStatus)) {
-                System.out.println("Event is cancelled and cannot be booked.");
-                return false;
-            }
-
-            
-            System.out.print("Enter the number of tickets to book: ");
-            int numberOfTickets = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
-
-            // Step 2: Check if the event exists and has enough seats
-//            EventModel event = eventService.getEventByName(eventName);
-//
-//            if (event == null) {
-//                System.out.println("Event not found.");
-//                return false;
-//            }
-//
-//            // Check event status and blocked status
-//            String eventStatus = event.getEventStatus();
-//            boolean isBlocked = event.isBlocked(); // Assumes getBlocked() is a method in EventModel
-//
 //            if (isBlocked) {
 //                System.out.println("Event is blocked and cannot be booked.");
 //                return false;
@@ -124,6 +98,15 @@ public class BookingController {
 //                System.out.println("Event is cancelled and cannot be booked.");
 //                return false;
 //            }
+
+            if (event.isBlocked() || "cancelled".equalsIgnoreCase(event.getEventStatus())) {
+                System.out.println("Event cannot be booked.");
+                return false;
+            }
+            
+            System.out.print("Enter the number of tickets to book: ");
+            int numberOfTickets = scanner.nextInt();
+            scanner.nextLine(); 
 
             if (event.getSeatsAvailable() < numberOfTickets) {
                 System.out.println("Not enough seats available for the requested booking.");

@@ -175,39 +175,6 @@ public class AccountController {
         }
 
 
-//    public void login() throws ClassNotFoundException, SQLException {
-//        System.out.print("Enter username: ");
-//        String username = scanner.nextLine().trim();
-//        System.out.print("Enter password: ");
-//        String password = scanner.nextLine().trim();
-//
-//        // Input validation
-//        if (username.isEmpty() || password.isEmpty()) {
-//            System.out.println("Username or password cannot be empty.");
-//            return;
-//        }
-//        try {
-////        if (FieldValidator.validateUsername(username) && FieldValidator.validatePassword(password)) {
-//        // Call service method for login
-//        AccountModel account = accountService.login(username, password);
-//            loggedInUsername = username;
-//            loggedInAccountId = AccountModel.getAccountId();
-//           
-//			
-//            System.out.println("Login successful! Welcome " + account.getName());
-//            
-//            logger.info("User Authenticated Successfully !\nUsername: " + username + "\n");
-//			
-//            notificationController.viewHighPriorityNotifications();
-//
-//            accountService.navigateBasedOnRole(account);
-//            // Proceed with role-specific actions
-//        } 
-//           catch(LoginException e){
-//        	   logger.severe("User Authentication Failed!! \n Username: " + username + "\n Password: " + password + "\n" + e.getMessage());
-//   			e.printStackTrace();
-//        }
-//        }
             
         public void login() throws ClassNotFoundException, SQLException {
             System.out.print("Enter username: ");
@@ -253,7 +220,7 @@ public class AccountController {
                     int blockedEventsCount = eventService.getCountOfBlockedEvents(); // Assuming this method counts blocked events
 
                     if (blockedEventsCount > 0) {
-                        String message = "You have " + blockedEventsCount + " events that are blocked.";
+                        String message = "You have " + blockedEventsCount + " event(s) that are blocked.";
                         ConsoleUtils.printRoundedBox(message); // Using a utility method to print in a rounded box format
                     } else {
                         System.out.println("There are no blocked events to manage.");
@@ -283,59 +250,8 @@ public class AccountController {
         }
 
 
-//	public void createAccount() throws ClassNotFoundException, SQLException {
-//        System.out.print("Enter name: ");
-//        String name = scanner.nextLine().trim();
-//        System.out.print("Enter username: ");
-//        String username = scanner.nextLine().trim();
-////        System.out.print("Enter password: ");
-////        String password = scanner.nextLine().trim();
-//        String password = PasswordHelper.getPasswordFromUser();
-//        System.out.print("Enter email: ");
-//        String email = scanner.nextLine().trim();
-//        System.out.print("Enter phone number: ");
-//        String phoneNumber = scanner.nextLine().trim();
-//        System.out.print("Enter role (admin/user/organizer): ");
-//        String role = scanner.nextLine().trim().toLowerCase();
-//        System.out.print("Enter age: ");
-//        int age = scanner.nextInt();
-//        scanner.nextLine(); // consume the remaining newline
-//
-//        // Input validation
-//        if (name.isEmpty() || username.isEmpty() || password.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || role.isEmpty()) {
-//            System.out.println("All fields are required.");
-//            return;
-//        }
-//        
-//        boolean blocked = role.equals("user") || role.equals("organizer");
-//
-//        // Role validation
-//        if (!(role.equals("admin") || role.equals("user") || role.equals("organizer"))) {
-//            System.out.println("Invalid role. Please enter admin, user, or organizer.");
-//            return;
-//        }
-//        try {
-//        FieldValidator.validateName(name);
-//        FieldValidator.validateUsername(username);
-//        FieldValidator.validatePassword(password);
-//        FieldValidator.validateEmail(email);
-//        FieldValidator.validatePhoneNumber(phoneNumber);
-//        FieldValidator.validateRole(role);
-//        FieldValidator.validateAge(age);
-//
-//
-//        String hashedPassword = PasswordHelper.hashPassword(password);
-//        boolean isCreated = accountService.createAccount(name, username, hashedPassword, email, phoneNumber, role, age,blocked);
-//        if (isCreated) {
-//            System.out.println("Account created successfully!");
-//        } else {
-//            System.out.println("Failed to create account. Please try again.");
-//        }
-//        
-//    }catch (ValidationException e) {
-//        System.out.println("Invalid input: " + e.getMessage());
-//    }
-//	}
+
+
 	
 	public static String getLoggedInUsername() {
         return loggedInUsername;
@@ -388,9 +304,9 @@ public class AccountController {
 		    System.out.println("3. Name");
 		    System.out.println("4. Email");
 		    System.out.println("5. Phone Number");
-		    System.out.println("6. Role");
-		    System.out.println("7. Age");
-		    System.out.println("8. Update All Fields");
+//		    System.out.println("6. Role");
+		    System.out.println("6. Age");
+		    System.out.println("7. Update All Fields");
 		    System.out.print("Choose an option: ");
 		    int fieldChoice = scanner.nextInt();
 		    scanner.nextLine(); // Consume newline
@@ -434,21 +350,21 @@ public class AccountController {
 		            phoneNumber = FieldSanitizer.sanitizePhoneNumber(phoneNumber);
 		            isUpdated = accountService.updateAccount(username, "phone_number", phoneNumber);
 		            break;
+//		        case 6:
+//		            System.out.print("Enter new role (admin/user/organizer): ");
+//		            String role = scanner.nextLine().trim().toLowerCase();
+//		            FieldValidator.validateRole(role);
+//		            role = FieldSanitizer.sanitizeRole(role);
+//		            isUpdated = accountService.updateAccount(username, "account_role", role);
+//		            break;
 		        case 6:
-		            System.out.print("Enter new role (admin/user/organizer): ");
-		            String role = scanner.nextLine().trim().toLowerCase();
-		            FieldValidator.validateRole(role);
-		            role = FieldSanitizer.sanitizeRole(role);
-		            isUpdated = accountService.updateAccount(username, "account_role", role);
-		            break;
-		        case 7:
 		            System.out.print("Enter new age: ");
 		            int age = scanner.nextInt();
 		            scanner.nextLine(); // Consume newline
 		            FieldValidator.validateAge(age);
 		            isUpdated = accountService.updateAccount(username, "age", String.valueOf(age));
 		            break;
-		        case 8:
+		        case 7:
 		            // Update all fields
 		            System.out.print("Enter new username: ");
 		            String updatedUsername = scanner.nextLine().trim();
@@ -558,15 +474,7 @@ public class AccountController {
 	            e.printStackTrace();
 	        }
 	    }
-//		public void viewAllUserAccounts() throws ClassNotFoundException, SQLException {
-//	        // Call service method to retrieve and display all user accounts
-//	        List<AccountModel> users = accountService.getAllUsers();
-//	        if (users.isEmpty()) {
-//	            System.out.println("No users found.");
-//	        } else {
-//	        	AccountPrinter.printAccounts(users);
-//	        }
-//	    }
+
 	    public List<AccountModel> viewAllUserAccounts() throws ClassNotFoundException, SQLException {
 	        // Call service method to retrieve and display all user accounts
 	        List<AccountModel> users = accountService.getAllUsers();
@@ -594,7 +502,6 @@ public class AccountController {
 	    }
 
 
-
 	    public void blockAccount() throws ClassNotFoundException, SQLException {
 	        System.out.print("Enter username of the account to change block status: ");
 	        String username = scanner.nextLine().trim();
@@ -604,13 +511,27 @@ public class AccountController {
 	            System.out.println("Username cannot be empty.");
 	            return;
 	        }
+
+	        // Retrieve the current account status
+	        AccountModel account = accountService.getAccountByUsername(username);
+	        if (account == null) {
+	            System.out.println("Account not found.");
+	            return;
+	        }
+
+	        boolean blockStatus = account.isBlocked();
+
+	        // Inform the user of the current block status
+	        if (blockStatus) {
+	            System.out.println("The account is currently blocked.");
+	        } else {
+	            System.out.println("The account is currently not blocked.");
 	        
 
-	        System.out.print("Do you want to block (true/false)? ");
-	        boolean blockStatus = scanner.nextBoolean();
-	        scanner.nextLine(); // consume the newline
+	        System.out.print("Do you want to block this account (true / false)? ");
+	        blockStatus = scanner.nextBoolean();
+	        scanner.nextLine(); }
 
-	        // Call service method to change the blocked status
 	        boolean statusChanged = accountService.changeBlockedStatus(username, blockStatus);
 	        if (statusChanged) {
 	            System.out.println("Account status changed successfully.");
@@ -619,6 +540,30 @@ public class AccountController {
 	        }
 	    }
 
+
+//	    public void blockAccount() throws ClassNotFoundException, SQLException {
+//	        System.out.print("Enter username of the account to change block status: ");
+//	        String username = scanner.nextLine().trim();
+//
+//	        // Input validation
+//	        if (username.isEmpty()) {
+//	            System.out.println("Username cannot be empty.");
+//	            return;
+//	        }
+//	        
+//
+//	        System.out.print("Do you want to block (true/false)? ");
+//	        boolean blockStatus = scanner.nextBoolean();
+//	        scanner.nextLine(); // consume the newline
+//
+//	        // Call service method to change the blocked status
+//	        boolean statusChanged = accountService.changeBlockedStatus(username, blockStatus);
+//	        if (statusChanged) {
+//	            System.out.println("Account status changed successfully.");
+//	        } else {
+//	            System.out.println("Failed to change account status. Please try again.");
+//	        }
+//	    }
 
 	    public void approveRequest() throws ClassNotFoundException, SQLException {
 	        System.out.print("Enter username of the account to approve: ");
@@ -630,6 +575,19 @@ public class AccountController {
 	            return;
 	        }
 
+	        // Retrieve the account based on username
+	        AccountModel account = accountService.getAccountByUsername(username);
+	        if (account == null) {
+	            System.out.println("No account found with the username: " + username);
+	            return;
+	        }
+
+	        // Check if the account is already unblocked
+	        if (!account.isBlocked()) {
+	            System.out.println("The account is already approved/unblocked.");
+	            return;
+	        }
+
 	        // Call service method to set blocked status to false (approve)
 	        boolean isApproved = accountService.changeBlockedStatus(username, false);
 	        if (isApproved) {
@@ -637,15 +595,10 @@ public class AccountController {
 
 	            // Generate notification message
 	            String notificationMessage = "Your account has been approved.";
+	            String accountId = account.getAccountId();
 
-	           // AccountModel account = getAccountByUsername(username); // Method to get account_id
-	            String accountId= AccountModel.getAccountId();
-	            if (accountId == null) {
-	                System.out.println("No account found for username: " + username);
-	                return;
-	            }
 	            // Create and send notification
-	            boolean notificationSent = notificationService.approvalNotification( notificationMessage, "HIGH",accountId);
+	            boolean notificationSent = notificationService.approvalNotification(notificationMessage, "HIGH", accountId);
 	            if (notificationSent) {
 	                System.out.println("Notification sent successfully.");
 	            } else {
@@ -656,15 +609,6 @@ public class AccountController {
 	        }
 	    }
 
-//	    public void viewBlockedAccounts() throws ClassNotFoundException, SQLException {
-//	        List<AccountModel> blockedAccounts = accountService.getBlockedAccounts();
-//
-//			if (blockedAccounts.isEmpty()) {
-//			    System.out.println("No blocked accounts found.");
-//			} else {
-//			    AccountPrinter.printAccounts(blockedAccounts);
-//			}
-//	    }
 	    public List<AccountModel> viewBlockedAccounts() throws ClassNotFoundException, SQLException {
 	        List<AccountModel> blockedAccounts = accountService.getBlockedAccounts();
 

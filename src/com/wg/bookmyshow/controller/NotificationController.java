@@ -38,7 +38,7 @@ public class NotificationController {
             System.out.println("No notifications found for your account.");
         } else {
             NotificationPrinter.printNotifications(notifications);
-            System.out.print("helloooo "); 
+            //System.out.print("helloooo "); 
         }
     }
 

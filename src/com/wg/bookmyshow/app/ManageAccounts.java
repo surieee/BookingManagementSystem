@@ -1,98 +1,4 @@
-//package com.wg.bookmyshow.app;
-//
-//import java.sql.SQLException;
-//import java.util.InputMismatchException;
-//import java.util.Scanner;
-//
-//import com.wg.bookmyshow.controller.AccountController;
-//import com.wg.bookmyshow.util.Printer;
-//
-//public class ManageAccounts {
-//    private static final Printer PRINTER = new Printer(); 
-//    private final AccountController accountController ;
-//
-//    public ManageAccounts() throws SQLException {
-//        this.accountController = new AccountController();
-//    }
-//    public void manageAccountsMenu() throws ClassNotFoundException, SQLException {
-//        Scanner scanner = new Scanner(System.in);
-//
-//        while (true) {
-//            try {
-//                PRINTER.printHeader("MANAGE ACCOUNTS MENU");
-//
-//                System.out.println("1. Create Account");
-//                System.out.println("2. Delete Account");
-//                System.out.println("3. Update Account");
-//                System.out.println("4. Block Account ");
-//                System.out.println("5. Unblock Account ");
-//                System.out.println("6. Approve Account Creation Request");
-//                System.out.println("7. View All User Accounts");
-//                System.out.println("8. View All Organizer Accounts");
-//                System.out.println("9. View Blocked Accounts");
-//                System.out.println("10. Search Account");
-//                System.out.println("11. View My Account Details");
-//                System.out.println("12. Back to Admin Menu");
-//                System.out.print("Choose an option: ");
-//                int choice = scanner.nextInt();
-//                scanner.nextLine(); // Consume newline
-//
-//                switch (choice) {
-//                    case 1:
-//                        accountController.createAccount();
-//                        break;
-//                    case 2:
-//                    	accountController.viewAllUserAccounts();
-//                        accountController.deleteAccount();
-//                        break;
-//                    case 3:
-//                    	accountController.viewAllUserAccounts();
-//                        accountController.updateAccount();
-//                        break;
-//                    case 4:
-//                    	accountController.viewAllUserAccounts();
-//                        accountController.blockAccount();
-//                        break;
-//                    case 5:
-//                    	 accountController.viewBlockedAccounts();
-//                    	accountController.approveRequest();
-//                        break;
-//                    case 6:
-//                    	 accountController.viewBlockedAccounts();
-//                        accountController.approveRequest();
-//                        break;
-//                    case 7:
-//                        accountController.viewAllUserAccounts();
-//                        break;
-//                    case 8:
-//                        accountController.viewAllOrganizerAccounts();
-//                        break;
-//                    case 9:
-//                        accountController.viewBlockedAccounts();
-//                        break;
-//                    case 10:
-//                    	accountController.viewAllUserAccounts();
-//                        accountController.viewAccountByUsername();
-//                        break;
-//                    case 11:
-//                    	accountController.viewMyAccount();
-//                        break;
-//
-//                    case 12:
-//                        System.out.println("Returning to Admin Menu...");
-//                        return; // Exit to the previous menu
-//                    default:
-//                        System.out.println("Invalid choice. Please try again.");
-//                }
-//            } catch (InputMismatchException e) {
-//                System.out.println("Invalid input. Please enter a number.");
-//                scanner.nextLine(); // Clear the invalid input
-//            } catch (Exception e) {
-//                System.out.println("An unexpected error occurred: " + e.getMessage());
-//            }
-//        }
-//    }
-//}
+
 
 package com.wg.bookmyshow.app;
 
@@ -126,7 +32,7 @@ public class ManageAccounts {
                 System.out.println("4. Block Account");
                 System.out.println("5. Unblock Account");
                 System.out.println("6. Approve Account Creation Request");
-                System.out.println("7. View All User Accounts");
+                System.out.println("7. View All Accounts");
                 System.out.println("8. View All Organizer Accounts");
                 System.out.println("9. View Blocked Accounts");
                 System.out.println("10. Search Account");

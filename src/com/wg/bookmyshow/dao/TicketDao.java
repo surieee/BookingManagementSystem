@@ -86,7 +86,7 @@ public class TicketDao extends GenericDao<TicketModel> {
 
             if (paymentId != null) {
                 // Update ticket status to 'canceled'
-                query = "UPDATE ticket SET ticket_status = 'canceled' WHERE ticket_id = ?";
+                query = "UPDATE ticket SET ticket_status = 'cancelled' WHERE ticket_id = ?";
                 statement = connection.prepareStatement(query);
                 statement.setString(1, ticketId);
                 statement.executeUpdate();
