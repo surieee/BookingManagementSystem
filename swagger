@@ -21,9 +21,32 @@ paths:
         '200':
           description: OK
           content:
-            '*/*':
+            application/json: # Specify the content type here
               schema:
                 type: object
+                properties:
+                  eventId:
+                    type: string
+                    example: "12345"
+                  eventName:
+                    type: string
+                    example: "Concert in the Park"
+                  eventDate:
+                    type: string
+                    format: date-time
+                    example: "2024-10-25T19:00:00Z"
+                  location:
+                    type: string
+                    example: "Central Park, NY"
+                  description:
+                    type: string
+                    example: "Join us for a wonderful evening of music and fun!"
+                required:
+                  - eventId
+                  - eventName
+                  - eventDate
+                  - location
+
     put:
       tags:
         - event-controller
@@ -85,9 +108,40 @@ paths:
         '200':
           description: OK
           content:
-            '*/*':
+            application/json: # Specify the content type here
               schema:
                 type: object
+                properties:
+                  accountId:
+                    type: string
+                    example: "acc-12345"
+                  username:
+                    type: string
+                    example: "john_doe"
+                  accountName:
+                    type: string
+                    example: "John Doe"
+                  age:
+                    type: integer
+                    example: 30
+                  role:
+                    type: string
+                    example: "USER" # Could be ADMIN, ORGANIZER, etc.
+                  phoneNumber:
+                    type: string
+                    example: "123-456-7890"
+                  email:
+                    type: string
+                    example: "john.doe@example.com"
+                required:
+                  - accountId
+                  - username
+                  - accountName
+                  - age
+                  - role
+                  - phoneNumber
+                  - email
+
     put:
       tags:
         - account-controller
@@ -171,22 +225,49 @@ paths:
                 type: object
   /api/payment:
     get:
-      tags:
-        - payment-controller
-      operationId: viewPaymentHistory
-      parameters:
-        - name: userId
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: object
+        tags:
+          - payment-controller
+        operationId: viewPaymentHistory
+        parameters:
+          - name: userId
+            in: query
+            required: true
+            schema:
+              type: string
+        responses:
+          '200':
+            description: OK
+            content:
+              application/json: # Specify the content type here
+                schema:
+                  type: object
+                  properties:
+                    payments:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          paymentId:
+                            type: string
+                            example: "pay-67890"
+                          billAmount:
+                            type: number
+                            format: double
+                            example: 100.50
+                          paymentStatus:
+                            type: string
+                            example: "COMPLETED" # Could also be "REFUNDED"
+                          dateOfPayment:
+                            type: string
+                            format: date-time
+                            example: "2024-10-20T14:30:00Z"
+                    message:
+                      type: string
+                      example: "Payment history retrieved successfully."
+                  required:
+                    - payments
+                    - message
+
     post:
       tags:
         - payment-controller
@@ -231,9 +312,38 @@ paths:
         '200':
           description: OK
           content:
-            '*/*':
+            application/json: # Specify the content type here
               schema:
                 type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        eventId:
+                          type: string
+                          example: "ev-12345"
+                        eventName:
+                          type: string
+                          example: "Concert in the Park"
+                        eventDate:
+                          type: string
+                          format: date-time
+                          example: "2024-10-25T19:00:00Z"
+                        location:
+                          type: string
+                          example: "Central Park, NY"
+                        description:
+                          type: string
+                          example: "Join us for an evening of music and fun!"
+                  message:
+                    type: string
+                    example: "Events retrieved successfully."
+                required:
+                  - events
+                  - message
+
     post:
       tags:
         - event-controller
@@ -271,9 +381,39 @@ paths:
         '200':
           description: OK
           content:
-            '*/*':
+            application/json: # Specify the content type here
               schema:
                 type: object
+                properties:
+                  bookings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        bookingId:
+                          type: string
+                          example: "bk-98765"
+                        eventId:
+                          type: string
+                          example: "ev-12345"
+                        userId:
+                          type: string
+                          example: "acc-67890"
+                        bookingDate:
+                          type: string
+                          format: date-time
+                          example: "2024-10-20T14:30:00Z"
+                        totalAmount:
+                          type: number
+                          format: double
+                          example: 150.00
+                  message:
+                    type: string
+                    example: "Bookings retrieved successfully."
+                required:
+                  - bookings
+                  - message
+
     post:
       tags:
         - booking-controller
@@ -363,18 +503,7 @@ paths:
             '*/*':
               schema:
                 type: object
-  /hello:
-    get:
-      tags:
-        - hello-controller
-      operationId: helloWorld
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: string
+
   /api/ticket/{accountId}:
     get:
       tags:
@@ -390,9 +519,38 @@ paths:
         '200':
           description: OK
           content:
-            '*/*':
+            application/json: # Specify the content type here
               schema:
                 type: object
+                properties:
+                  tickets:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ticketId:
+                          type: string
+                          example: "tk-54321"
+                        eventId:
+                          type: string
+                          example: "ev-12345"
+                        accountId:
+                          type: string
+                          example: "acc-67890"
+                        bookingDate:
+                          type: string
+                          format: date-time
+                          example: "2024-10-20T14:30:00Z"
+                        seatNumber:
+                          type: string
+                          example: "A12"
+                  message:
+                    type: string
+                    example: "Tickets retrieved successfully."
+                required:
+                  - tickets
+                  - message
+
   /api/notification/{userId}:
     get:
       tags:
@@ -408,32 +566,90 @@ paths:
         '200':
           description: OK
           content:
-            '*/*':
+            application/json: # Specify the content type here
               schema:
                 type: object
+                properties:
+                  notifications:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        notificationId:
+                          type: string
+                          example: "noti-12345"
+                        message:
+                          type: string
+                          example: "Your booking for the event has been confirmed."
+                        priority:
+                          type: string
+                          example: "HIGH" # Could be "MEDIUM", "LOW", etc.
+                        userId:
+                          type: string
+                          example: "acc-67890"
+                        timestamp:
+                          type: string
+                          format: date-time
+                          example: "2024-10-20T14:30:00Z"
+                  message:
+                    type: string
+                    example: "Notifications retrieved successfully."
+                required:
+                  - notifications
+                  - message
+
   /api/notification/search:
-    get:
-      tags:
-        - notification-controller
-      operationId: searchNotificationsByPriority
-      parameters:
-        - name: userId
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: priority
-          in: query
-          required: false
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: object
+   get:
+    tags:
+      - notification-controller
+    operationId: searchNotificationsByPriority
+    parameters:
+      - name: userId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: priority
+        in: query
+        required: false
+        schema:
+          type: string
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json: # Specify the content type here
+            schema:
+              type: object
+              properties:
+                notifications:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      notificationId:
+                        type: string
+                        example: "noti-67890"
+                      message:
+                        type: string
+                        example: "Your ticket has been upgraded."
+                      priority:
+                        type: string
+                        example: "HIGH" # Could be "MEDIUM", "LOW", etc.
+                      userId:
+                        type: string
+                        example: "acc-12345"
+                      timestamp:
+                        type: string
+                        format: date-time
+                        example: "2024-10-21T09:00:00Z"
+                message:
+                  type: string
+                  example: "Notifications retrieved successfully."
+              required:
+                - notifications
+                - message
+
   /api/event/search:
     get:
       tags:
@@ -451,9 +667,38 @@ paths:
         '200':
           description: OK
           content:
-            '*/*':
+            application/json: # Specify the content type here
               schema:
                 type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        eventId:
+                          type: string
+                          example: "ev-54321"
+                        eventName:
+                          type: string
+                          example: "Concert of the Year"
+                        date:
+                          type: string
+                          format: date-time
+                          example: "2024-10-25T19:00:00Z"
+                        location:
+                          type: string
+                          example: "City Stadium"
+                        description:
+                          type: string
+                          example: "An amazing concert featuring popular artists."
+                  message:
+                    type: string
+                    example: "Events retrieved successfully."
+                required:
+                  - events
+                  - message
+
   /api/event/blocked:
     get:
       tags:
@@ -463,9 +708,38 @@ paths:
         '200':
           description: OK
           content:
-            '*/*':
+            application/json: # Specify the content type here
               schema:
                 type: object
+                properties:
+                  blockedEvents:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        eventId:
+                          type: string
+                          example: "ev-67890"
+                        eventName:
+                          type: string
+                          example: "Annual Charity Gala"
+                        date:
+                          type: string
+                          format: date-time
+                          example: "2024-11-15T18:00:00Z"
+                        location:
+                          type: string
+                          example: "Downtown Convention Center"
+                        reason:
+                          type: string
+                          example: "Event has been postponed."
+                  message:
+                    type: string
+                    example: "Blocked events retrieved successfully."
+                required:
+                  - blockedEvents
+                  - message
+
   /api/account:
     get:
       tags:
@@ -495,87 +769,44 @@ paths:
         '200':
           description: OK
           content:
-            '*/*':
+            application/json: # Specify the content type here
               schema:
                 type: object
-  /**:
-    get:
-      tags:
-        - path-not-found-error-controller
-      operationId: handleUndefinedPaths
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-    put:
-      tags:
-        - path-not-found-error-controller
-      operationId: handleUndefinedPaths_3
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-    post:
-      tags:
-        - path-not-found-error-controller
-      operationId: handleUndefinedPaths_2
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-    delete:
-      tags:
-        - path-not-found-error-controller
-      operationId: handleUndefinedPaths_5
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-    options:
-      tags:
-        - path-not-found-error-controller
-      operationId: handleUndefinedPaths_6
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-    head:
-      tags:
-        - path-not-found-error-controller
-      operationId: handleUndefinedPaths_1
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-    patch:
-      tags:
-        - path-not-found-error-controller
-      operationId: handleUndefinedPaths_4
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
+                properties:
+                  accounts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        accountId:
+                          type: string
+                          example: "acc-12345"
+                        username:
+                          type: string
+                          example: "john_doe"
+                        accountName:
+                          type: string
+                          example: "John Doe"
+                        age:
+                          type: integer
+                          example: 30
+                        role:
+                          type: string
+                          example: "USER" # Could be "ADMIN", "ORGANIZER", etc.
+                        email:
+                          type: string
+                          example: "john.doe@example.com"
+                        blocked:
+                          type: boolean
+                          example: false
+                  message:
+                    type: string
+                    example: "Accounts retrieved successfully."
+                required:
+                  - accounts
+                  - message
+
+  
 components:
   schemas:
     EventModel:
